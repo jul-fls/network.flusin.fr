@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Calculateur IP</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="index.css"/>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body onload="init();"> <!--Navbar-->
+        <div class="w3-bar w3-dark-grey">
+            <a href="/iscalc" class="w3-bar-item w3-button w3-mobile" style="width:33.33333333333%">Calculateur de débit / temps / taille de transfert</a>
+            <a href="/hardware" class="w3-bar-item w3-button w3-mobile" style="width:33.33333333333%">Hardware</a>
+            <a href="/ipcalc" class="w3-bar-item w3-button w3-mobile w3-green" style="width:33.33333333333%">Calculateur IP</a>
+          </div>
+        <h1 class="w3-center ">Calculateur IP</h1>
+        <div class="w3-container">
+            <div class="w3-card w3-center w3-padding-small">
+                <h2>Vous souhaitez :</h2>
+                <ul>
+                    <li><span onclick="enableIpDiv(); disableMaskDiv(); disableIpRangeDiv(); disableIpBinInput(); enableIpDecInput(); refreshData(); "><input type="radio" name="mode" id="mode_ip10to2" value="ip10to2"><label for="mode_ip10to2" >Convertir Ip de décimal à binaire</label></span></li>
+                    <li><span onclick="enableIpDiv(); disableMaskDiv(); disableIpRangeDiv(); disableIpDecInput(); enableIpBinInput(); refreshData(); "><input type="radio" name="mode" id="mode_ip2to10" value="ip2to10"><label for="mode_ip2to10" >Convertir Ip de binaire à décimal</label></span></li>
+                    <li><span onclick="disableIpDiv(); enableMaskDiv(); disableIpRangeDiv(); disableMaskBinInput(); enableMaskDecInput(); refreshData();"><input type="radio" name="mode" id="mode_mask10to2" value="mask10to2"><label for="mode_mask10to2" >Convertir Masque de sous réseau de décimal à binaire</label></span></li>
+                    <li><span onclick="disableIpDiv(); enableMaskDiv(); disableIpRangeDiv(); disableMaskDecInput(); enableMaskBinInput(); refreshData();"><input type="radio" name="mode" id="mode_mask2to10" value="mask2to10"><label for="mode_mask2to10" >Convertir Masque de sous réseau de binaire à décimal</label></span></li>
+                    <li><span onclick="disableIpDiv(); disableMaskDiv(); enableIpRangeDiv(); refreshData();"><input type="radio" name="mode" id="mode_iprange" value="iprange"><label for="mode_iprange" >Calculer la plage d'adresse de ce réseau (inclu l'adresse de réseau et de diffusion)</label></span></li>
+                </ul>
+            </div>
+                <hr style="position: absolute; left:5%;" width="90%"/><br/>
+                <div class="w3-card w3-center w3-padding-small w3-mobile" id="ipbase" style="display: none;">
+                    <label for="0ipbasebyte10">IP&#8321&#8320 (décimal)</label>
+                    <span>
+                        <input type="number" min="0" max="255" name="0ipbasebyte10" id="0ipbasebyte10" class="ipbasedec user-input" placeholder="1er octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="0ipbasebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="1ipbasebyte10" id="1ipbasebyte10" class="ipbasedec user-input" placeholder="2eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="1ipbasebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="2ipbasebyte10" id="2ipbasebyte10" class="ipbasedec user-input" placeholder="3eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="2ipbasebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="3ipbasebyte10" id="3ipbasebyte10" class="ipbasedec user-input" placeholder="4eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="3ipbasebyte10"></label>
+                    </span>
+                    <br/>
+                    <label for="0ipbasebyte2">IP&#8322 (binaire)</label>
+                    <span>
+                        <input type="number" min="0" max="1" name="0ipbasebyte2" id="0ipbasebyte2" class="ipbasebin user-input" placeholder="1er octet&#8322" oninput="refreshData();"/>
+                        <label for="0ipbasebyte2">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="1" name="1ipbasebyte2" id="1ipbasebyte2" class="ipbasebin user-input" placeholder="2eme octet&#8322" oninput="refreshData();"/>
+                        <label for="1ipbasebyte2">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="1" name="2ipbasebyte2" id="2ipbasebyte2" class="ipbasebin user-input" placeholder="3eme octet&#8322" oninput="refreshData();"/>
+                        <label for="2ipbasebyte2">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="1" name="3ipbasebyte2" id="3ipbasebyte2" class="ipbasebin user-input" placeholder="4eme octet&#8322" oninput="refreshData();"/>
+                        <label for="3ipbasebyte2"></label>
+                    </span>
+                </div>
+                <div class="w3-card w3-center w3-padding-small w3-mobile" id="maskbase" style="display: none;">
+                    <label for="0maskbyte10">Masque&#8321&#8320 (décimal)</label>
+                    <span>
+                        <input type="number" min="0" max="255" name="0maskbyte10" id="0maskbyte10" class="maskdec user-input" placeholder="1er octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="0maskbyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="1maskbyte10" id="1maskbyte10" class="maskdec user-input" placeholder="2eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="1maskbyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="2maskbyte10" id="2maskbyte10" class="maskdec user-input" placeholder="3eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="2maskbyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="3maskbyte10" id="3maskbyte10" class="maskdec user-input" placeholder="4eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="3maskbyte10"></label>
+                    </span>
+                    <br/>
+                    <label for="1maskbyte2">Masque&#8322 (binaire)</label>
+                    <span>
+                        <input type="number" min="0" max="1" name="0maskbyte2" id="0maskbyte2" class="maskbin user-input" placeholder="1er octet&#8322" oninput="refreshData();"/>
+                        <label for="0maskbyte2">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="1" name="1maskbyte2" id="1maskbyte2" class="maskbin user-input" placeholder="2eme octet&#8322" oninput="refreshData();"/>
+                        <label for="1maskbyte2">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="1" name="2maskbyte2" id="2maskbyte2" class="maskbin user-input" placeholder="3eme octet&#8322" oninput="refreshData();"/>
+                        <label for="2maskbyte2">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="1" name="3maskbyte2" id="3maskbyte2" class="maskbin user-input" placeholder="4eme octet&#8322" oninput="refreshData();"/>
+                        <label for="3maskbyte2"></label>
+                    </span>
+                </div>
+                <div class="w3-card w3-center w3-padding-small w3-mobile" id="iprange" style="display: none;">
+                    <label for="0iprangebyte10">IP dans le réseau&#8321&#8320 (décimal)</label>
+                    <span>
+                        <input type="number" min="0" max="255" name="0iprangebyte10" id="0iprangebyte10" class="ipdec user-input" placeholder="1er octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="0iprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="1iprangebyte10" id="1iprangebyte10" class="ipdec user-input" placeholder="2eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="1iprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="2iprangebyte10" id="2iprangebyte10" class="ipdec user-input" placeholder="3eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="2iprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="3iprangebyte10" id="3iprangebyte10" class="ipdec user-input" placeholder="4eme octet&#8321&#8320" oninput="refreshData();"/>
+                        <label for="3iprangebyte10"></label>
+                    </span>
+                    <select name="cidr" id="cidr" onchange="refreshData();">
+                        <option value="1">/1</option>
+                        <option value="2">/2</option>
+                        <option value="3">/3</option>
+                        <option value="4">/4</option>
+                        <option value="5">/5</option>
+                        <option value="6">/6</option>
+                        <option value="7">/7</option>
+                        <option value="8">/8</option>
+                        <option value="9">/9</option>
+                        <option value="10">/10</option>
+                        <option value="11">/11</option>
+                        <option value="12">/12</option>
+                        <option value="13">/13</option>
+                        <option value="14">/14</option>
+                        <option value="15">/15</option>
+                        <option value="16">/16</option>
+                        <option value="17">/17</option>
+                        <option value="18">/18</option>
+                        <option value="19">/19</option>
+                        <option value="20">/20</option>
+                        <option value="21">/21</option>
+                        <option value="22">/22</option>
+                        <option value="23">/23</option>
+                        <option value="24">/24</option>
+                        <option value="25">/25</option>
+                        <option value="26">/26</option>
+                        <option value="27">/27</option>
+                        <option value="28">/28</option>
+                        <option value="29">/29</option>
+                        <option value="30">/30</option>
+                        <option value="31">/31</option>
+                        <option value="32">/32</option>
+                    </select>
+                    <span>
+                        <input type="text" name="netclass" id="netclass" disabled style="width: 230px; color: green; font-weight: bold;"/>
+                    </span>
+                    <span>
+                        <input type="text" name="nbofhosts" id="nbofhosts" disabled style="width: auto; color: green; font-weight: bold;" value=""/>
+                    </span>
+                    <br/>
+                    <label for="0netiprangebyte10">Adrresse IP de réseau&#8321&#8320 (décimal)</label>
+                    <span>
+                        <input type="number" min="0" max="255" name="0netiprangebyte10" id="0netiprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="0netiprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="1netiprangebyte10" id="1netiprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="1netiprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="2netiprangebyte10" id="2netiprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="2netiprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="3netiprangebyte10" id="3netiprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="3netiprangebyte10"></label>
+                    </span>
+                    <br/>
+                    <label for="0briprangebyte10">Adrresse IP de diffusion&#8321&#8320 (décimal)</label>
+                    <span>
+                        <input type="number" min="0" max="255" name="0briprangebyte10" id="0briprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="0briprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="1briprangebyte10" id="1briprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="1briprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="2briprangebyte10" id="2briprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="2briprangebyte10">.</label>
+                    </span>
+                    <span>
+                        <input type="number" min="0" max="255" name="3briprangebyte10" id="3briprangebyte10" class="ipdec user-input" oninput="refreshData();" disabled style="color: green; font-weight: bold;"/>
+                        <label for="3briprangebyte10"></label>
+                    </span>
+                </div>
+        </div>
+    </body>
+</html>

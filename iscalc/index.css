@@ -1,0 +1,9 @@
+ul {
+    list-style-type: none;
+    list-style-position: inside;
+    position:relative;
+    text-align: center;
+}
+.user-input{
+    width: 80px;
+}

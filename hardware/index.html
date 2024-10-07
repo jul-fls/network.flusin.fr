@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Hardware Réseau</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="index.css"/>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body onload="init();"> <!--Navbar-->
+        <div class="w3-bar w3-dark-grey">
+            <a href="/iscalc" class="w3-bar-item w3-button w3-mobile" style="width:33.33333333333%">Calculateur de débit / temps / taille de transfert</a>
+            <a href="/hardware" class="w3-bar-item w3-button w3-mobile w3-green" style="width:33.33333333333%">Hardware</a>
+            <a href="/ipcalc" class="w3-bar-item w3-button w3-mobile" style="width:33.33333333333%">Calculateur IP</a>
+          </div>
+        <h1 class="w3-center ">Hardware Réseau</h1>
+        <div class="w3-container">
+            <div class="w3-card w3-center w3-padding-small">
+                <h2>Vous souhaitez :</h2>
+                <ul>
+                    <li><span onclick="enableCableDroitDiv(); disableCableCroiseDiv();"><input type="radio" name="mode" id="mode_cable_droit" value="cable_droit"><label for="mode_cable_droit" >Créer un câble RJ45 droit</label></span></li>
+                    <li><span onclick="disableCableDroitDiv(); enableCableCroiseDiv();"><input type="radio" name="mode" id="mode_cable_croise" value="cable_croise"><label for="mode_cable_croise" >Créer un câble RJ45 croisé</label></span></li>
+                </ul>
+            </div>
+                <hr style="position: absolute; left:5%;" width="90%"/><br/>
+                <div class="w3-card w3-center w3-padding-small w3-mobile" id="cable_droit" style="display: none;">
+                    <label for="">Créer un cable RJ45 droit</label>
+                    <h4>Un cable réseau étant composé de 2 extrémités il est donc nécessaire d'avoir 2 embouts RJ45<img src="https://www.yesss-fr.com/produits/50002/photos/50002-2098898.jpg" width="40px;" /></h4>
+                    <p>Pour créer un câble <u style="color: red; font-weight: bold;">RJ45 droit il faut mettre la meme norme de câblage à chaque extrémité</u> (T568A ou T568B) dans ce tutoriel, je vais expliquer les 2.</p>
+                    <hr style="height: 2px;border: none;background-color: grey;"/>
+                    <div class="row">
+                        <div class="column">
+                            <p>Pour faire un cable droit respectant la norme <u style="color: red; font-weight: bold;">T568A</u> :</p>
+                            <span><img src="pics/T568A.png"/><p>Prendre une extrémité du câble et la câbler en suivant le schéma minutieusement de la même manière sur les 2 extrémités.</p></span>
+                        </div>
+                        <div class="column">
+                            <p>Pour faire un cable droit respectant la norme <u style="color: red; font-weight: bold;">T568B</u> :</p>
+                            <span><img src="pics/T568B.png"/><p>Prendre une extrémité du câble et la câbler en suivant le schéma minutieusement de la même manière sur les 2 extrémités.</p></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-card w3-center w3-padding-small w3-mobile" id="cable_croise" style="display: none;">
+                    <label for="">Créer un cable RJ45 croisé</label>
+                    <h4>Un cable réseau étant composé de 2 extrémités il est donc nécessaire d'avoir 2 embouts RJ45<img src="https://www.yesss-fr.com/produits/50002/photos/50002-2098898.jpg" width="40px;" /></h4>
+                    <p>Pour créer un câble <u style="color: red; font-weight: bold;">RJ45 croisé il faut mettre une norme de câblage différente à chaque extrémité</u> (T568A et T568B).</p>
+                    <hr style="height: 2px;border: none;background-color: grey;"/>
+                    <div class="row">
+                        <div class="column">
+                            <p>Pour faire un cable croisé respectant les normes <u style="color: red; font-weight: bold;">T568A d'un coté et T568B de l'autre</u> :</p>
+                            <span><img src="pics/T568A.png"/><p>Prendre une extrémité du câble et la câbler en suivant ce schéma minutieusement.</p></span>
+                        </div>
+                        <div class="column">
+                            <p>Pour faire un cable croisé respectant les normes <u style="color: red; font-weight: bold;">T568A d'un coté et T568B de l'autre</u> :</p>
+                            <span><img src="pics/T568B.png"/><p>Prendre l'autre extrémité du câble et la câbler en suivant ce schéma minutieusement.</p></span>
+                        </div>
+                    </div>
+                </div>  
+        </div>
+    </body>
+</html>

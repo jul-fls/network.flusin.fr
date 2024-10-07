@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Calculateur de débit / temps / taille de transfert</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <script type="text/javascript" src="script.js"></script>
+</head>
+
+<body class="bg-gradient-to-r from-blue-500 to-green-500 flex flex-col items-center">
+    <!--Navbar-->
+    <div class="text-blue-800 mb-6 grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-white bg-opacity-40 backdrop-blur-md rounded-xl shadow-lg">
+        <div class="group relative flex flex-col items-center p-4 cursor-pointer transition-transform transform hover:scale-105 bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg text-center" onclick="location.href='/iscalc';">
+            <p class="text-sm md:text-base font-semibold">Calculateur de débit / temps / taille de transfert</p>
+        </div>
+        <div class="group relative flex flex-col items-center p-4 cursor-pointer transition-transform transform hover:scale-105 bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg text-center" onclick="location.href='/hardware';">
+            <p class="text-sm md:text-base font-semibold">Hardware</p>
+        </div>
+        <div class="group relative flex flex-col items-center p-4 cursor-pointer transition-transform transform hover:scale-105 bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg text-center" onclick="location.href='/ipcalc';">
+            <p class="text-sm md:text-base font-semibold">Calculateur IP</p>
+        </div>
+    </div>    
+    
+    <div class="w-full max-w-7xl p-6 bg-white bg-opacity-40 backdrop-blur-md rounded-xl shadow-lg">
+        <h1 class="text-center mb-6 text-4xl font-bold text-blue-800 bg-white bg-opacity-40 backdrop-blur-md p-4 rounded-lg shadow-lg">
+            Calculateur de débit / temps / taille de transfert
+        </h1>
+        
+        <div class="">
+            <div class="bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg mb-6 p-4">
+                <div class="bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg mb-6 p-4 text-center">
+                    <h2>Vous souhaitez :</h2>
+                    <ul>
+                        <li>
+                            <span onclick="refreshData(); disableTimeInput(); enableBwInput(); enableDataInput();">
+                                <input type="radio" name="mode" id="mode_time" value="time">
+                                    <label for="mode_time">
+                                        Calculer le temps de transfert
+                                    </label>
+                                </span>
+                            </li>
+                        <li>
+                            <span onclick="refreshData(); enableTimeInput(); enableBwInput(); disableDataInput();">
+                                <input type="radio" name="mode" id="mode_data" value="data">
+                                <label for="mode_data">
+                                    Calculer la quantité de données transférables
+                                </label>
+                            </span>
+                        </li>
+                        <li>
+                            <span onclick="refreshData(); enableTimeInput(); disableBwInput(); enableDataInput();">
+                                <input type="radio" name="mode" id="mode_bw" value="bw">
+                                <label for="mode_bw">
+                                    Calculer la bande passante
+                                </label>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mb-6">
+                    <hr class="border-gray-200 mb-4">
+                    <div class="bg-white bg-opacity-40 backdrop-blur-md rounded-lg shadow-lg p-4">
+                        <div class="mb-4">
+                            <label for="bw_val" class="block text-gray-700 text-sm font-bold mb-2">Bande passante :</label>
+                            <div class="flex items-center">
+                                <input type="number" name="val" id="bw_val" class="user-input shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="refreshData();" />
+                                <select name="mode" id="bw_unit" class="block appearance-none w-24 bg-white border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:border-gray-500 ml-2" onchange="refreshData();">
+                                    <option value="Kb/s">Kb/s</option>
+                                    <option value="Mb/s">Mb/s</option>
+                                    <option value="Gb/s">Gb/s</option>
+                                    <option value="Tb/s">Tb/s</option>
+                                    <option value="Ko/s">Ko/s</option>
+                                    <option value="Mo/s">Mo/s</option>
+                                    <option value="Go/s">Go/s</option>
+                                    <option value="To/s">To/s</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="mb-4">
+                            <label for="data_val" class="block text-gray-700 text-sm font-bold mb-2">Quantité de données :</label>
+                            <div class="flex items-center">
+                                <input type="number" name="val" id="data_val" class="user-input shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="refreshData();"/>
+                                <select name="mode" id="data_unit" class="block appearance-none w-24 bg-white border border-gray-200 text-gray-700 py-2 px-3 rounded leading-tight focus:outline-none focus:border-gray-500 ml-2" onchange="refreshData();">
+                                    <option value="o">o</option>
+                                    <option value="Ko">Ko</option>
+                                    <option value="Mo">Mo</option>
+                                    <option value="Go">Go</option>
+                                    <option value="To">To</option>
+                                    <option value="Po">Po</option>
+                                    <option value="Eo">Eo</option>
+                                    <option value="Zo">Zo</option>
+                                    <option value="Yo">Yo</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="mb-4">
+                            <label for="days" class="block text-gray-700 text-sm font-bold mb-2">Temps de transfert de données :</label>
+                            <div class="flex items-center">
+                                <span>
+                                    <input type="number" name="days" id="days" class="time user-input shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="refreshData();"/>
+                                    <label for="days">jour(s)</label>
+                                </span>
+                                <span>
+                                    <input type="number" name="hours" id="hours" class="time user-input shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="refreshData();"/>
+                                    <label for="hours">heure(s)</label>
+                                </span>
+                                <span>
+                                    <input type="number" name="minutes" id="minutes" class="time user-input shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="refreshData();"/>
+                                    <label for="minutes">minute(s)</label>
+                                </span>
+                                <span>
+                                    <input type="number" name="seconds" id="seconds" class="time user-input shadow appearance-none border rounded w-24 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" oninput="refreshData();"/>
+                                    <label for="seconds">seconde(s)</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

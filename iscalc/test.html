@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script defer src="script.js"></script>
+    <title>Calculateur de débit / temps / taille de transfert</title>
+</head>
+<body class="bg-gray-100">
+    <header class="p-4 bg-gray-800 text-white">
+        <div class="container mx-auto">
+            <div class="flex justify-between items-center">
+                <a href="/iscalc" class="text-green-500 hover:text-green-300">Calculateur de débit / temps / taille de transfert</a>
+                <a href="/hardware" class="text-white hover:text-gray-400">Hardware</a>
+                <a href="/ipcalc" class="text-white hover:text-gray-400">Calculateur IP</a>
+            </div>
+        </div>
+    </header>
+    <main class="container mx-auto mt-4 p-4 bg-white rounded-lg shadow-lg bg-opacity-60 backdrop-blur-md">
+        <h1 class="text-center text-2xl font-bold mb-4">Calculateur de débit / temps / taille de transfert</h1>
+
+        <div class="mb-6">
+            <h2 class="text-center text-xl mb-2">Vous souhaitez :</h2>
+            <div class="flex space-x-2 justify-center">
+                <label class="inline-flex items-center">
+                    <input type="radio" class="form-radio" name="mode" value="time" onclick="refreshData(); disableTimeInput(); enableBwInput(); enableDataInput();">
+                    <span class="ml-2">Calculer le temps de transfert</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" class="form-radio" name="mode" value="data" onclick="refreshData(); enableTimeInput(); enableBwInput(); disableDataInput();">
+                    <span class="ml-2">Calculer la quantité de données transférables</span>
+                </label>
+                <label class="inline-flex items-center">
+                    <input type="radio" class="form-radio" name="mode" value="bw" onclick="refreshData(); enableTimeInput(); disableBwInput(); enableDataInput();">
+                    <span class="ml-2">Calculer la bande passante</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mb-6">
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block mb-2" for="bw_val">Bande passante :</label>
+                    <div class="flex space-x-2">
+                        <input type="number" id="bw_val" class="form-input w-full" oninput="refreshData();">
+                        <select id="bw_unit" class="form-select" onchange="refreshData();">
+                            <!-- les options vont ici -->
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block mb-2" for="data_val">Quantité de données :</label>
+                    <div class="flex space-x-2">
+                        <input type="number" id="data_val" class="form-input w-full" oninput="refreshData();">
+                        <select id="data_unit" class="form-select" onchange="refreshData();">
+                            <!-- les options vont ici -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <label class="block mb-2" for="days">Temps de transfert de données :</label>
+            <div class="flex space-x-2">
+                <div class="flex space-x-2">
+                    <input type="number" id="days" class="form-input w-20" oninput="refreshData();">
+                    <label for="days" class="pt-1">jour(s)</label>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="number" id="hours" class="form-input w-20" oninput="refreshData();">
+                    <label for="hours" class="pt-1">heure(s)</label>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="number" id="minutes" class="form-input w-20" oninput="refreshData();">
+                    <label for="minutes" class="pt-1">minute(s)</label>
+                </div>
+                <div class="flex space-x-2">
+                    <input type="number" id="seconds" class="form-input w-20" oninput="refreshData();">
+                    <label for="seconds" class="pt-1">seconde(s)</label>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

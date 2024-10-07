@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Calculateur de débit / temps / taille de transfert</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.1.7/css/fork-awesome.min.css" integrity="sha256-gsmEoJAws/Kd3CjuOQzLie5Q3yshhvmo7YNtBG7aaEY=" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="index.css"/>
+        <script type="text/javascript" src="script.js"></script>
+    </head>
+    <body> <!--Navbar-->
+        <div class="w3-bar w3-dark-grey">
+            <a href="/iscalc" class="w3-bar-item w3-button w3-mobile w3-green" style="width:33.33333333333%">Calculateur de débit / temps / taille de transfert</a>
+            <a href="/hardware" class="w3-bar-item w3-button w3-mobile" style="width:33.33333333333%">Hardware</a>
+            <a href="/ipcalc" class="w3-bar-item w3-button w3-mobile" style="width:33.33333333333%">Calculateur IP</a>
+          </div>
+        <h1 class="w3-center ">Calculateur de débit / temps / taille de transfert</h1>
+        <div class="w3-container">
+            <div class="w3-card w3-center w3-padding-small">
+                <h2>Vous souhaitez :</h2>
+                <ul>
+                    <li><span onclick="refreshData(); disableTimeInput(); enableBwInput(); enableDataInput();"><input type="radio" name="mode" id="mode_time" value="time"><label for="mode_time" >Calculer le temps de transfert</label></span></li>
+                    <li><span onclick="refreshData(); enableTimeInput(); enableBwInput(); disableDataInput();"><input type="radio" name="mode" id="mode_data" value="data"><label for="mode_data" >Calculer la quantité de données transférables</label></span></li>
+                    <li><span onclick="refreshData(); enableTimeInput(); disableBwInput(); enableDataInput();"><input type="radio" name="mode" id="mode_bw" value="bw"><label for="mode_bw" >Calculer la bande passante</label></span></li>
+                </ul>
+            </div>
+                <hr style="position: absolute; left:5%;" width="90%"/><br/>
+                <div class="w3-card w3-center w3-padding-small w3-mobile">
+                    <label for="bw_val">Bande passante :</label>
+                    <input type="number" name="val" id="bw_val" class="user-input" oninput="refreshData();"/>
+                    <select name="mode" id="bw_unit" onchange="refreshData();">
+                        <option value="Kb/s">Kb/s</option>
+                        <option value="Mb/s">Mb/s</option>
+                        <option value="Gb/s">Gb/s</option>
+                        <option value="Tb/s">Tb/s</option>
+                        <option value="Ko/s">Ko/s</option>
+                        <option value="Mo/s">Mo/s</option>
+                        <option value="Go/s">Go/s</option>
+                        <option value="To/s">To/s</option>
+                    </select>
+                    <br/>
+                    <label for="data_val">Quantité de données :</label>
+                    <input type="number" name="val" id="data_val" class="user-input" oninput="refreshData();"/>
+                    <select name="mode" id="data_unit" onchange="refreshData();">
+                        <option value="o">o</option>
+                        <option value="Ko">Ko</option>
+                        <option value="Mo">Mo</option>
+                        <option value="Go">Go</option>
+                        <option value="To">To</option>
+                        <option value="Po">Po</option>
+                        <option value="Eo">Eo</option>
+                        <option value="Zo">Zo</option>
+                        <option value="Yo">Yo</option>
+                    </select>
+                    <br/>
+                    <label for="days">Temps de transfert de données :</label>
+                    <span>
+                        <input type="number" name="days" id="days" class="time user-input" oninput="refreshData();"/>
+                        <label for="days">jour(s)</label>
+                    </span>
+                    <span>
+                        <input type="number" name="hours" id="hours" class="time user-input" oninput="refreshData();"/>
+                        <label for="hours">heure(s)</label>
+                    </span>
+                    <span>
+                        <input type="number" name="minutes" id="minutes" class="time user-input" oninput="refreshData();"/>
+                        <label for="minutes">minute(s)</label>
+                    </span>
+                    <span>
+                        <input type="number" name="seconds" id="seconds" class="time user-input" oninput="refreshData();"/>
+                        <label for="seconds">seconde(s)</label>
+                    </span>
+                </div>
+        </div>
+    </body>
+</html>

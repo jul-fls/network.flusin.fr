@@ -1,0 +1,34 @@
+.margin-arround {
+    display: flex;
+    /* margin: 20px; */
+    width: calc(100% - 40px);
+    min-height: 160px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+:root{
+    --colorRed: firebrick;
+    --colorGreen: darkolivegreen;
+}
+.row {
+    display: flex;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+.red {
+    background-color: var(--colorRed);
+}
+.white{
+    background-color: white;
+}
